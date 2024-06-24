@@ -17,7 +17,7 @@ namespace api_cine_search.Controllers
     public async Task<IActionResult> Get()
     {
 
-      var mongoHelper = new MongoHelper("mongodb+srv://cattoi:UDYXG873GvONSIWx@cine-search-db.wssoj9j.mongodb.net/?retryWrites=true&w=majority&appName=cine-search-db", "cine-search");
+      var mongoHelper = new MongoHelper("mongoconnectionstring", "cine-search");
       var userRepository = new UserRepository(mongoHelper);
       var retrieveUser = new RetrieveUser(userRepository);
       var user = await retrieveUser.Retrieve("rodrigo.costa@gmail.com");
