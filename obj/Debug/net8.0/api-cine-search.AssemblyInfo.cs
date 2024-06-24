@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api-cine-search")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b8a7ca25154d20de610edf15fc6e6ec1e526e7f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c93fb0ccbb83254f0382f31d9b06a0101519577")]
 [assembly: System.Reflection.AssemblyProductAttribute("api-cine-search")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api-cine-search")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
