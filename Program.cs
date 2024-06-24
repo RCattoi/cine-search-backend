@@ -1,7 +1,4 @@
-using System.Text;
-using api_cine_search.Configurations;
-using api_cine_search.Helpers;
-using api_cine_search.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,10 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(key: "MongoDatabase"));
-builder.Services.AddSingleton<UserService>();
-builder.Services.AddSingleton<LoginService>();
-builder.Services.AddSingleton<Authenticate>();
 builder.Services.AddAuthentication(opt =>
 {
   opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,7 +23,6 @@ builder.Services.AddAuthentication(opt =>
     ValidateIssuerSigningKey = true,
     ValidIssuer = builder.Configuration["Jwt:issuer"],
     ValidAudience = builder.Configuration["Jwt:audience"],
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:secretKey"] ?? ""))
   };
 });
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using api_cine_search.Application.Interfaces;
 using api_cine_search.Domain.Models;
-using api_cine_search.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;

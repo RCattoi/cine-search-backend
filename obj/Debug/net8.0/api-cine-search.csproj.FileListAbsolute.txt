@@ -52,3 +52,4 @@ C:\Users\rodrigo.costa\Documents\techStudies\projetos\api-cine-search\bin\Debug\
 C:\Users\rodrigo.costa\Documents\techStudies\projetos\api-cine-search\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\rodrigo.costa\Documents\techStudies\projetos\api-cine-search\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\rodrigo.costa\Documents\techStudies\projetos\api-cine-search\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\rodrigo.costa\Documents\techStudies\projetos\api-cine-search\obj\Debug\net8.0\api-cine-search.sourcelink.json
