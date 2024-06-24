@@ -1,0 +1,6 @@
+@api_cine_search_HostAddress = http://localhost:5252
+
+GET {{api_cine_search_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
