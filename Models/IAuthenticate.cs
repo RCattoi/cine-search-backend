@@ -8,7 +8,7 @@ namespace api_cine_search.Models
   public interface IAuthenticate
   {
     Task<bool> AuthenticateAsync(string email, string password);
-    Task<User> UserExistsAsync(string email);
+    Task<UserModel> UserExistsAsync(string email);
     public string GenerateToken(string id, string email);
   }
 }

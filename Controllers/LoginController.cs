@@ -17,7 +17,7 @@ namespace api_cine_search.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Authenticate([FromBody] User user)
+    public async Task<IActionResult> Authenticate([FromBody] UserModel user)
     {
       try
       {

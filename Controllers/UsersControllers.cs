@@ -20,7 +20,7 @@ namespace api_cine_search.Controllers
 
     [HttpGet("id:length(24)")]
     // [Route("get-user")]
-    public async Task<IActionResult> Get(string id)
+    public async Task<IActionResult> Get(int id)
     {
       var user = await _userService.GetAsync(id);
       if (user is null)
@@ -35,17 +35,18 @@ namespace api_cine_search.Controllers
 
     [HttpPost]
     [Route("create-user")]
-    public async Task<IActionResult> Post([FromBody] Models.User user)
+    public async Task<IActionResult> Post([FromBody] Models.UserModel user)
     {
       try
       {
         var result = PasswordHasher.HashPassword(user.Password);
         user.Password = result.hashedPassword;
-        var createdUser = await _userService.CreateAsync(user);
+        UserModel createdUser = await _userService.CreateAsync(user);
         CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
         var salt = new UserSaltDetails
         {
-          UserId = createdUser.Id,
+          UserId = 0,
+          // createdUser.Id,
           Salt = result.salt,
           SaltSize = result.saltSize
         };
@@ -58,7 +59,7 @@ namespace api_cine_search.Controllers
       }
     }
 
-    
+
   }
 
   internal class UserSaltDetailsService

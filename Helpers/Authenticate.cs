@@ -16,7 +16,7 @@ namespace api_cine_search.Helpers
 {
   public class Authenticate : IAuthenticate
   {
-    private readonly IMongoCollection<User> _users;
+    private readonly IMongoCollection<UserModel> _users;
     private readonly IMongoCollection<UserSaltDetails> _salt;
     private readonly IConfiguration _configuration;
     public Authenticate(IOptions<DatabaseSettings> databaseSettings, IConfiguration configuration)
@@ -24,7 +24,7 @@ namespace api_cine_search.Helpers
       _configuration = configuration;
       var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
       var mongoDb = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
-      _users = mongoDb.GetCollection<User>(databaseSettings.Value.SetCollectionName("Users"));
+      _users = mongoDb.GetCollection<UserModel>(databaseSettings.Value.SetCollectionName("Users"));
       _salt = mongoDb.GetCollection<UserSaltDetails>(databaseSettings.Value.SetCollectionName("UserSaltDetails"));
     }
     public async Task<bool> AuthenticateAsync(string email, string password)
@@ -34,12 +34,13 @@ namespace api_cine_search.Helpers
       {
         return false;
       }
-      var salt = await _salt.Find(x => x.UserId == user.Id).FirstOrDefaultAsync();
+      var salt = null as UserSaltDetails;
+      // await _salt.Find(x => x.UserId == user.Id).FirstOrDefaultAsync();
       if (salt == null || salt.Salt == null || salt.SaltSize == 0)
       {
         return false;
       }
-      User userData = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
+      UserModel userData = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
       var passwordMatch = PasswordHasher.VerifyPassword(userData.Password, password, salt.Salt, salt.SaltSize);
 
       if (!passwordMatch)
@@ -50,7 +51,7 @@ namespace api_cine_search.Helpers
       return true;
     }
 
-    public string GenerateToken(string id, string email)
+    public string GenerateToken(int id, string email)
     {
       var claims = new[]
       {
@@ -76,9 +77,14 @@ namespace api_cine_search.Helpers
       return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public async Task<User> UserExistsAsync(string email)
+    public string GenerateToken(string id, string email)
     {
-      var userExists = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
+      throw new NotImplementedException();
+    }
+
+    public async Task<UserModel> UserExistsAsync(string email)
+    {
+      UserModel userExists = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
       if (userExists == null)
       {
         throw new Exception("User not found");

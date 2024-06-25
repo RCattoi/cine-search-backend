@@ -12,7 +12,7 @@ namespace api_cine_search.Services
 {
   public class LoginService
   {
-    private readonly IMongoCollection<User> _users;
+    private readonly IMongoCollection<UserModel> _users;
 
     private readonly Authenticate _auth;
     public LoginService(IOptions<DatabaseSettings> databaseSettings, Authenticate auth)
@@ -20,7 +20,7 @@ namespace api_cine_search.Services
       _auth = auth;
       var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
       var mongoDb = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
-      _users = mongoDb.GetCollection<User>(databaseSettings.Value.SetCollectionName("Users"));
+      _users = mongoDb.GetCollection<UserModel>(databaseSettings.Value.SetCollectionName("Users"));
     }
     public async Task<string> Login(string email, string password)
     {
@@ -33,12 +33,12 @@ namespace api_cine_search.Services
       {
         throw new Exception("Invalid email or password");
       }
-      var user = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
+      UserModel user = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
       if (user == null || user.Id == null || user.Email == null)
       {
         throw new Exception("User not found");
       }
-      var token = _auth.GenerateToken(user.Id, user.Email);
+      var token = _auth.GenerateToken((int)user.Id, user.Email);
       return token;
     }
   }
